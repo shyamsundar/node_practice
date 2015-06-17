@@ -1,5 +1,5 @@
-var fs = require("fs");
 var path = require('path');
+var mymodule = require('./filefiltermodule');
 
 var filetoRead = process.argv[2];
 var fileFilter = process.argv[3];
@@ -20,8 +20,14 @@ console.log(contents.toString().split("\n").length - 1);
     });
 })*/
 
-fs.readdir(filetoRead, function(err, files){
+/*fs.readdir(filetoRead, function(err, files){
     files.forEach(function(elem){
         if(path.extname(elem) == "." + fileFilter) console.log(elem);
+    })
+})*/
+
+mymodule(filetoRead, fileFilter, function(err,files){
+    files.forEach(function(ele){
+        console.log(ele);
     })
 })
