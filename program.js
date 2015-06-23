@@ -1,14 +1,12 @@
 var http = require('http');
-
+var concat = require('concat-stream');
 http.get(process.argv[2], function(response){
     response.setEncoding('utf-8');
-    respData = '';
-    response.on('data', function(data){
-        respData += data;
+    respData = concat(function(data){
+        console.log(data.length);
+        console.log(data.toString());
     });
-    response.on('end', function(){
-        console.log(respData.length);
-        console.log(respData);
-    })
+    response.pipe(respData);
+    
     response.on('error', console.error);
 })
